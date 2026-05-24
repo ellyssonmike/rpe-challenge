@@ -5,6 +5,7 @@ import com.rpe.challenge.shared.exceptions.api.FieldErrorDetail;
 import com.rpe.challenge.shared.exceptions.core.ExceptionContext;
 import com.rpe.challenge.shared.exceptions.core.ExceptionModuleType;
 import lombok.Getter;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
@@ -44,6 +45,7 @@ public abstract class BaseException extends RuntimeException {
 	public ApplicationExceptionResponse toResponse(HttpStatus status) {
 		return new ApplicationExceptionResponse(
 			timestamp,
+			resolveRequestId(),
 			resolveName(),
 			module,
 			code,
@@ -60,6 +62,10 @@ public abstract class BaseException extends RuntimeException {
 		return this.getClass()
 			.getSimpleName()
 			.replace("Exception", "");
+	}
+
+	private String resolveRequestId() {
+		return MDC.get("requestId");
 	}
 
 	private String resolveModule() {

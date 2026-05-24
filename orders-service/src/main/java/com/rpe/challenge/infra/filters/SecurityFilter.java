@@ -1,4 +1,4 @@
-package com.rpe.challenge.infra.security;
+package com.rpe.challenge.infra.filters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rpe.challenge.auth.security.UserPrincipal;

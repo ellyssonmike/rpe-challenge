@@ -1,6 +1,6 @@
 package com.rpe.challenge.infra.security.config;
 
-import com.rpe.challenge.infra.security.SecurityFilter;
+import com.rpe.challenge.infra.filters.SecurityFilter;
 import com.rpe.challenge.infra.security.jwt.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
