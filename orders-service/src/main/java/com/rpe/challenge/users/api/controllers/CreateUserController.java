@@ -1,5 +1,6 @@
 package com.rpe.challenge.users.api.controllers;
 
+import com.rpe.challenge.infra.api.responses.Response;
 import com.rpe.challenge.shared.exceptions.core.ExceptionModule;
 import com.rpe.challenge.shared.exceptions.core.ExceptionModuleType;
 import com.rpe.challenge.users.api.requests.CreateUserRequest;
@@ -24,9 +25,13 @@ public class CreateUserController {
 	private final CreateUserService createUserService;
 
 	@PostMapping
-	public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+	public ResponseEntity<Response<UserResponse>> createUser(@Valid @RequestBody CreateUserRequest request) {
 		User user = createUserService.execute(CreateUserMapper.toInput(request));
 
-		return ResponseEntity.ok(UserMapper.toResponse(user));
+		return ResponseEntity.ok(
+			new Response<>(
+				UserMapper.toResponse(user)
+			)
+		);
 	}
 }

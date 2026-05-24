@@ -5,6 +5,7 @@ import com.rpe.challenge.auth.api.responses.AuthLoginResponse;
 import com.rpe.challenge.auth.application.dtos.AuthLoginResult;
 import com.rpe.challenge.auth.application.inputs.AuthLoginInput;
 import com.rpe.challenge.auth.application.services.AuthLoginService;
+import com.rpe.challenge.infra.api.responses.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +21,19 @@ public class AuthLoginController {
 	private final AuthLoginService authLoginService;
 
 	@PostMapping("/login")
-	ResponseEntity<AuthLoginResponse> login(@Valid @RequestBody AuthLoginRequest request) {
+	ResponseEntity<Response<AuthLoginResponse>> login(@Valid @RequestBody AuthLoginRequest request) {
 		AuthLoginResult result = authLoginService.execute(new AuthLoginInput(
 			request.email(),
 			request.password()
 		));
 
-		return ResponseEntity.ok(new AuthLoginResponse(
-			result.accessToken(),
-			result.expiresIn()
-		));
+		return ResponseEntity.ok(
+			new Response<>(
+				new AuthLoginResponse(
+					result.accessToken(),
+					result.expiresIn()
+				)
+			)
+		);
 	}
 }

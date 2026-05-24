@@ -1,5 +1,6 @@
 package com.rpe.challenge.orders.api.controllers;
 
+import com.rpe.challenge.infra.api.responses.Response;
 import com.rpe.challenge.orders.api.requests.CreateOrderRequest;
 import com.rpe.challenge.orders.api.responses.OrderResponse;
 import com.rpe.challenge.orders.application.services.CreateOrderService;
@@ -22,13 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @ExceptionModule(ExceptionModuleType.ORDERS)
 public class CreateOrderController {
-
 	private final CreateOrderService createOrderService;
 
 	@PostMapping
-	public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request) {
+	public ResponseEntity<Response<OrderResponse>> createOrder(@Valid @RequestBody CreateOrderRequest request) {
 		Order order = createOrderService.execute(CreateOrderMapper.toInput(request));
 
-		return ResponseEntity.ok(OrderMapper.toResponse(order));
+		return ResponseEntity.ok(
+			new Response<>(
+				OrderMapper.toResponse(order)
+			)
+		);
 	}
 }
