@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5832:5432"
+    environment:
+      POSTGRES_USER: ${ORDERS_DATASOURCE_USERNAME:-orders}
+      POSTGRES_PASSWORD: ${ORDERS_DATASOURCE_PASSWORD:-aNvXaW3mNM7EQAL2}
+      POSTGRES_DB: ${ORDERS_DATASOURCE_DATABASE:-orders-database}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - com.rpe.challenge
+
+volumes:
+  postgres-data:
+
+networks:
+  com.rpe.challenge:
+    driver: bridge
