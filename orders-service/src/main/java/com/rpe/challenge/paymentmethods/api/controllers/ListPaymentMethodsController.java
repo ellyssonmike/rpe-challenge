@@ -3,7 +3,6 @@ package com.rpe.challenge.paymentmethods.api.controllers;
 import com.rpe.challenge.infra.api.responses.Response;
 import com.rpe.challenge.paymentmethods.api.responses.PaymentMethodResponse;
 import com.rpe.challenge.paymentmethods.application.services.ListPaymentMethodsService;
-import com.rpe.challenge.paymentmethods.domain.mappers.PaymentMethodMapper;
 import com.rpe.challenge.shared.exceptions.core.ExceptionModule;
 import com.rpe.challenge.shared.exceptions.core.ExceptionModuleType;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +23,6 @@ public class ListPaymentMethodsController {
 	@GetMapping
 	ResponseEntity<Response<Collection<PaymentMethodResponse>>> list() {
 		return ResponseEntity.ok(
-			new Response<>(
-				listPaymentMethodsService.execute()
-					.stream()
-					.map(PaymentMethodMapper::toResponse)
-					.toList()
-			)
-		);
+			new Response<>(listPaymentMethodsService.execute()));
 	}
 }
