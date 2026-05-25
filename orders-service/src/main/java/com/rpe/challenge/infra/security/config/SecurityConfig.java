@@ -31,10 +31,14 @@ public class SecurityConfig {
 			.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 			.authorizeHttpRequests(
 				authorizeRequests -> authorizeRequests
+
 					.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 					.requestMatchers(HttpMethod.POST, "/users").permitAll()
+					.requestMatchers(HttpMethod.GET, "/payment-methods").permitAll()
+
 					.requestMatchers(HttpMethod.POST, "/orders/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.GET, "/orders/**").hasRole("MANAGER")
+
 					.anyRequest().authenticated())
 			.build();
 	}
