@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -105,7 +106,7 @@ public class GlobalExceptionHandler {
 			.collect(Collectors.groupingBy(
 				FieldError::getField,
 				Collectors.mapping(
-					FieldError::getDefaultMessage,
+					this::resolveMessage,
 					Collectors.toList())))
 			.entrySet()
 			.stream()
@@ -138,5 +139,13 @@ public class GlobalExceptionHandler {
 		return ResponseEntity
 			.status(exception.getStatus())
 			.body(exception.toResponse());
+	}
+
+	private String resolveMessage(FieldError error) {
+		if (Objects.equals(error.getCode(), "typeMismatch")) {
+			return "O valor informado é inválido";
+		}
+
+		return error.getDefaultMessage();
 	}
 }
