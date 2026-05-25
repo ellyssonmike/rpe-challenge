@@ -32,14 +32,21 @@ public class ListOrdersService {
 			);
 		}
 
-		Sort sort = Sort.by(
-			Sort.Direction.valueOf(filters.sortDirection().name()),
-			filters.sortColumn().getColumn()
-		);
+		if (filters.paymentMethod() != null) {
+			spec = spec.and(((root, query, criteriaBuilder) ->
+				criteriaBuilder.equal(root.get("paymentMethod"), filters.paymentMethod()))
+			);
+		}
 
-		return orderRepository.findAll(spec, sort)
+		return orderRepository.findAll(spec, sort(filters))
 			.stream()
 			.map(OrderMapper::toDomain)
 			.toList();
+	}
+
+	private Sort sort(ListOrdersInput filters) {
+		return Sort.by(
+			Sort.Direction.valueOf(filters.sortDirection().name()),
+			filters.sortColumn().getColumn());
 	}
 }

@@ -11,6 +11,7 @@ public class ListOrdersMapper {
 				? new CPF(filters.buyerCpf())
 				: null,
 			filters.status(),
+			filters.paymentMethod(),
 			filters.sortDirection(),
 			filters.sortColumn()
 		);
