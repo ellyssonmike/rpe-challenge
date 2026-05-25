@@ -74,16 +74,6 @@ public abstract class BaseException extends RuntimeException {
 			return "Application";
 		}
 
-		return toPascalCase(module.name());
-	}
-
-	public static String toPascalCase(String value) {
-		if (value == null || value.isBlank()) {
-			return value;
-		}
-
-		String lower = value.toLowerCase();
-		return Character.toUpperCase(lower.charAt(0))
-			+ lower.substring(1);
+		return module.getColumn();
 	}
 }
