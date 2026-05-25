@@ -1,6 +1,5 @@
 package com.rpe.challenge.infra.security.jwt;
 
-import com.rpe.challenge.shared.utils.TimeDurationParser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -51,7 +50,7 @@ public class JwtService {
 	}
 
 	private Date getExpiration() {
-		return new Date(System.currentTimeMillis() + TimeDurationParser.toMillis(jwtProperties.getExpirationTime()));
+		return new Date(System.currentTimeMillis() + jwtProperties.getExpirationTime().toMillis());
 	}
 
 	private Claims getClaims(String token) {
