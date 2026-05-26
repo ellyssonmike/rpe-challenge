@@ -1,4 +1,4 @@
-package com.rpe.challenge.infra.config;
+package com.rpe.challenge.infra.config.cache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.annotation.EnableCaching;

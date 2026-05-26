@@ -1,4 +1,4 @@
-package com.rpe.challenge.infra.config;
+package com.rpe.challenge.infra.config.cache;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
