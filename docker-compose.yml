@@ -12,6 +12,19 @@ services:
     restart: always
     networks:
       - com.rpe.challenge
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+    restart: always
+    networks:
+      - com.rpe.challenge
 
   redis:
     image: redis:alpine
@@ -40,8 +53,25 @@ services:
     networks:
       - com.rpe.challenge
 
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: challenge
+      ME_CONFIG_BASICAUTH_PASSWORD: hYAicDHjNzfV4oEO
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
+    networks:
+      - com.rpe.challenge
+    depends_on:
+      - mongo
+
 volumes:
   postgres-data:
+  mongo-data:
   redis-data:
 
 networks:
