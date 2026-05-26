@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+		"baseUrl": "./",
+    "paths": {
+			"@payment/*": ["src/payment/*"],
+			"@infra/*": ["src/infra/*"],
+      "@config/*": ["src/config/*"],
+			"@shared/*": ["src/shared/*"],
+			"@utils/*": ["src/shared/utils/*"],
+			"@core/*": ["src/core/*"]
+		}
+  }
+}
