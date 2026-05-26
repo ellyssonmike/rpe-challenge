@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
 	name = "payment-processor",
-	url = "${clients.payment-processor.url}"
+	url = "${clients.payment-processor.url}",
+	configuration = PaymentProcessorConfig.class
 )
 public interface PaymentProcessorClient {
 	@PostMapping("/payments/process")

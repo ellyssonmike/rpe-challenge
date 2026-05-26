@@ -7,7 +7,7 @@ import com.rpe.challenge.orders.domain.mappers.OrderMapper;
 import com.rpe.challenge.orders.domain.models.Order;
 import com.rpe.challenge.orders.persistence.entities.OrderEntity;
 import com.rpe.challenge.orders.persistence.repositories.OrderRepository;
-import com.rpe.challenge.payments.integration.clients.payment.PaymentProcessorClient;
+import com.rpe.challenge.payments.integration.clients.payment.PaymentProcessorGateway;
 import com.rpe.challenge.payments.integration.clients.payment.dtos.PaymentProcessRequest;
 import com.rpe.challenge.payments.integration.clients.payment.dtos.PaymentProcessResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreateOrderService {
 	private final OrderRepository orderRepository;
-	private final PaymentProcessorClient client;
+	private final PaymentProcessorGateway paymentGateway;
 
 	public Order execute(CreateOrderInput input) {
 		Order order = CreateOrderMapper.toDomain(input);
@@ -28,23 +28,25 @@ public class CreateOrderService {
 			OrderMapper.toEntity(order)
 		);
 
-		try {
-			PaymentProcessResponse response = client.process(new PaymentProcessRequest(
-				order.getPaymentMethod(),
-				createdOrder.getId(),
-				order.getItemId(),
-				order.getAmount(),
-				order.getBuyerName().value(),
-				order.getBuyerCpf().value()
-			));
+		log.info("[{}] {} order created ({})", createdOrder.getId(), createdOrder.getStatus(), createdOrder.getPaymentMethod());
+		log.info("[{}] • Sending {} payment request", createdOrder.getId(), createdOrder.getPaymentMethod());
 
-			createdOrder.setStatus(OrderStatus.valueOf(response.paymentStatus().name()));
-			createdOrder.setPaymentDate(response.paymentDate());
-		} catch (Exception ex) {
-			log.warn("[{}] Payment service unavailable, keeping order PENDING. Reason: {}", createdOrder.getId(), ex.getMessage());
-		}
+		PaymentProcessResponse response = paymentGateway.process(new PaymentProcessRequest(
+			order.getPaymentMethod(),
+			createdOrder.getId(),
+			order.getItemId(),
+			order.getAmount(),
+			order.getBuyerName().value(),
+			order.getBuyerCpf().value()
+		));
+
+		createdOrder.setStatus(OrderStatus.valueOf(response.paymentStatus().name()));
+		createdOrder.setPaymentDate(response.paymentDate());
 
 		orderRepository.save(createdOrder);
+		if (createdOrder.getStatus() != OrderStatus.PENDING) {
+			log.info("[{}] • Updated order status to {}", createdOrder.getId(), response.paymentStatus());
+		}
 
 		return OrderMapper.toDomain(createdOrder);
 	}
