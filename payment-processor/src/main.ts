@@ -1,8 +1,10 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@config/config.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocsBuilderService } from '@docs/services/docs-builder.service';
 import { ValidationExceptionFactory } from './infra/factories/validation-exception.factory';
 import { ApplicationExceptionFilter } from './infra/filters/application-exception-filter';
 import { BasichAuthAuthorizer } from './docs/basic-auth.authorizer';
@@ -44,6 +46,9 @@ async function bootstrap() {
         realm: 'Payment Processor',
       }),
     );
+
+    const swaggerBuilder = app.get(DocsBuilderService);
+    swaggerBuilder.execute();
 
     const swaggerConfigs = new DocumentBuilder()
       .setTitle('Payment Processor')

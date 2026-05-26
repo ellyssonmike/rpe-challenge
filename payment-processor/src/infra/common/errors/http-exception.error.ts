@@ -1,7 +1,13 @@
 import { HttpStatus } from '@nestjs/common';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiProperty,
+  ApiPropertyOptional,
+} from '@nestjs/swagger';
 import { IBaseErrorOptions } from './interfaces/errors.interfaces';
+import { SwaggerResponse } from '@docs';
 
+@SwaggerResponse(ApiInternalServerErrorResponse)
 export class HttpExceptionError extends Error {
   static readonly status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 

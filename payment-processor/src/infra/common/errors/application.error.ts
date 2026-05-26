@@ -3,12 +3,15 @@ import { HttpExceptionError } from './http-exception.error';
 import { ValidationError } from 'class-validator';
 import { IBaseErrorOptions, ValidationErrorReason } from './interfaces/errors.interfaces';
 import { exceptionValidator } from './validator/exception.validator';
+import { ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { SwaggerResponse } from '@docs';
 
 type Err = Error | ApplicationError | ValidationErrorReason;
 interface IApplicationErrorOptions<T extends Err = Err> extends IBaseErrorOptions {
   errors?: T[];
 }
 
+@SwaggerResponse(ApiInternalServerErrorResponse)
 export class ApplicationError<T extends Err = Err> extends HttpExceptionError {
   static readonly status: HttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
   public readonly status: HttpStatus = (this.constructor as typeof ApplicationError)
