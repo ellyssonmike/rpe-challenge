@@ -26,6 +26,20 @@ services:
     networks:
       - com.rpe.challenge
 
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN}
+      - DEBUG=${LOCAL_STACK_DEBUG:-0}
+      - SERVICES=sqs
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./config/localstack/init-sqs.sh:/etc/localstack/init/ready.d/init-sqs.sh"
+    networks:
+      - com.rpe.challenge
+
 volumes:
   postgres-data:
   redis-data:
