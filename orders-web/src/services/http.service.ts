@@ -10,7 +10,7 @@ export class HTTPService {
       }),
     })
 
-  return res;
+    return res;
   }
 
   public get(endpoint: string, headers?: HeadersInit) {
