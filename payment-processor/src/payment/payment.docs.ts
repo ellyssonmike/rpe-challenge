@@ -10,4 +10,13 @@ export class PaymentDocs {
       responses: [PaymentProcessResponse],
     };
   }
+
+  static updateStatus(): ControllerSchema {
+    return {
+      summary: 'Atualizar status do pagamento',
+      description: 'Atualiza o status do pagamento',
+      validated: true,
+      responses: [],
+    };
+  }
 }
