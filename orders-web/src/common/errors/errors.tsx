@@ -1,5 +1,5 @@
-import { notify } from '@/components/notifications'
 import { FieldPath, Form, UseFormReturn } from 'react-hook-form'
+import { toast } from 'sonner'
 
 export interface APIError {
   timestamp: Date
@@ -59,7 +59,7 @@ export function handleFormError<T extends Record<string, any>>(
   error: APIError,
 ) {
   if (!hasFieldErrors(error)) {
-    return notify.error(error.message)
+    return toast.error(error.message)
   }
 
   setFormErrors(form, error)
