@@ -262,7 +262,7 @@ Vamos pegar como exemplo a configuração de `status`. Nota-se que a configuraç
 Ou seja, utilizamos a propriedade `weight` de cada item do array para controlar a probabilidade de retorno de cada um dos status.
 
 #### **Timeout**
-A mesma lógica se aplica para os timeouts. Como falei anteriormente, nem sempre os serviços na web estão estáveis. Então, para replicar um cenário mais realista implementei essa lógica para simular como APIs reais que possuem tráfego intenso funcionam. Esse objeto define a probabilidade da API retornar num determinado tempo, ou seja, vamos extrair apenas o objeto de **timeout** pra ver mais de perto.
+A mesma lógica se aplica para os timeouts. Como falei anteriormente, nem sempre os serviços na web estão estáveis. Então, para replicar um cenário mais realista implementei essa lógica para simular como APIs reais que possuem tráfego intenso funcionam. Esse objeto define a probabilidade da API retornar num determinado tempo. Vamos extrair apenas o objeto de **timeout** pra ver mais de perto.
 ```ts
 [
   { weight: 85, range: { min: 0.0, max: 0.2 } },
