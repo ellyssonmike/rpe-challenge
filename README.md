@@ -275,7 +275,7 @@ A mesma lógica se aplica para os timeouts. Como falei anteriormente, nem sempre
 - `range` - Range define o mínimo e máximo em **segundos** que o serviço vai retornar. Ou seja, no primeiro item do array, tem 85% de chance do serviço retornar entre **0ms** e **200ms**. Dessa forma, a maioria das requisições serão mais rápidas. Se formos olhar para o último item do array. Há 2% de chance do serviço retornar entre **5 segundos** e **90 segundos**. Adicionando mais itens no array, conseguimos criar outras situações. Mas é necessário lembrar que a soma de todos os itens do array precisam dar **100** para que funcione corretamente.
 
 #### **Swagger** ####
-Para acessar a documentação das rotas, temos o endpoint `/docs`. Ao acessar este endpoint, temos uma **Basic Authentication** protegidas por login e senha que se encontram [aqui](./env.example#L15).
+Para acessar a documentação das rotas, temos o endpoint `/docs`. Ao acessar este endpoint, temos uma **Basic Authentication** protegida por login e senha que se encontram [aqui](./env.example#L15).
 ```bash
 ### Swagger ###
 PAYMENT_DOCS_ENABLED="1"
@@ -289,7 +289,7 @@ PAYMENT_DOCS_PASSWORD="challenge"
 ### Interface web ###
 No front segue a mesma lógica do serviço de ordens de serviço em relação à proteção de rotas, onde a página de criar usuários é pública pra poder criar o primeiro usuário, assim como a de login. Todas as outras rotas estão protegidas exigindo autenticação.
 
-As rotas pública são:
+As rotas públicas são:
 - `/login` - Efetuar login
 - `/usuarios` ou `/usuarios/novo` - Criar usuário
 
