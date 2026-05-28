@@ -126,7 +126,7 @@ export function CreateOrderModal({ onCreateSuccess }: CreateOrderModalProps) {
       }
 
       onCreateSuccess?.()
-      toast('Ordem de serviço criada com sucesso.')
+      toast.success('Ordem de serviço criada com sucesso.')
       setOpen(false)
       form.reset()
     } catch (error: any) {
