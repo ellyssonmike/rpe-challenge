@@ -156,7 +156,18 @@ A rota de listar ordens de serviço possui alguns filtros via `QueryParams` que 
 - `paymentMethod` - Filtrar por **meio de pagamento**. Os valores aceitos e suas variantes **case-insensitive**:
   - `PIX` - **Pix**, **pix** (...)
   - `CREDIT_CARD` - **Credit_Card**, **CreditCard**, **creditCard**, **credit_card**, **creditcard** (...)
-  - `DEBIT_CARD` - segue a mesma lógica dos outros campos acima
+  - `DEBIT_CARD` - Segue a mesma lógica dos outros campos acima
+- `sortColumn` - Colunas de ordenação (**case-insensitive**)
+  - `STATUS` - **Status**, **status** (...) - status da ordem de serviço
+  - `AMOUNT` - **Amount**, **amount** (...) - valor da ordem de serviço
+  - `BUYER_CPF` - **Buyer_Cpf**, **BuyerCpf**, **buyerCpf**, **buyer_cpf**, **buyercpf** (...) - **CPF** do comprador
+  - `BUYER_NAME` - **Buyer_Cpf**, **BuyerCpf**, **buyerCpf**, **buyer_cpf**, **buyercpf** (...) - nome do comprador
+  - `PAYMENT_DATE` - **Payment_Date**, **PaymentDate**, **paymentDate**, **payment_date**, **paymentdate** (...) - data de pagamento
+  - `CREATED_AT` - **Created_At**, **CreatedAt**, **createdAt**, **created_at**, **createdat** (...) - data de criação da ordem
+  - `UPDATED_AT` - **Updated_At**, **UpdatedAt**, **updatedAt**, **updated_at**, **updatedat** (...) - data de atualização da ordem
+- `sortDirection` - Direção da ordenação
+  - `ASC` - **Asc**, **asc** - ascendente
+  - `DESC` - **Desc**, **desc** - descendente
 
 Todas as rotas possuem uma validação dinâmica baseada nas annotations, onde em caso de erro são retornados todos os campos com as mensagens correspondentes para o campo:
 ```json
