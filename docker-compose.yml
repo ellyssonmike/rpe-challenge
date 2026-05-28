@@ -12,7 +12,7 @@ services:
     restart: always
     networks:
       - com.rpe.challenge
-  
+
   mongo:
     image: mongo
     ports:
@@ -70,7 +70,7 @@ services:
       - mongo
 
   orders-service:
-    build: 
+    build:
       context: ./orders-service
       dockerfile: Dockerfile
     ports:
@@ -91,7 +91,7 @@ services:
       - com.rpe.challenge
 
   payment-processor:
-    build: 
+    build:
       context: ./payment-processor
       dockerfile: Dockerfile
     ports:
@@ -105,6 +105,20 @@ services:
     depends_on:
       - mongo
       - localstack
+    restart: on-failure
+    networks:
+      - com.rpe.challenge
+
+  orders-web:
+    build:
+      context: ./orders-web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - ORDERS_API_URL=http://orders-service:4000
+    depends_on:
+      - orders-service
     restart: on-failure
     networks:
       - com.rpe.challenge
