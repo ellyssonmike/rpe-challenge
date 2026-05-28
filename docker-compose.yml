@@ -16,12 +16,16 @@ services:
   mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - "${MONGODB_PORT:-27017}:27017"
     volumes:
       - mongo-data:/data/db
+      - ./config/mongodb/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+      MONGODB_DATABASE_USERNAME: ${MONGODB_DATABASE_USERNAME}
+      MONGODB_DATABASE_PASSWORD: ${MONGODB_DATABASE_PASSWORD}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
     restart: always
     networks:
       - com.rpe.challenge
