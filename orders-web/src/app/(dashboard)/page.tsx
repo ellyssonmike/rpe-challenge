@@ -8,6 +8,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { User, FileText, Plus, EyeIcon } from 'lucide-react'
 import Link from 'next/link'
+import { Logout } from '@/components/logout'
 
 export default function HomePage() {
   return (
