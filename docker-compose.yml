@@ -69,6 +69,25 @@ services:
     depends_on:
       - mongo
 
+  payment-processor:
+    build: 
+      context: ./payment-processor
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./payment-processor/.env
+    environment:
+      - AWS_SQS_ENDPOINT=http://localstack:4566
+      - PAYMENT_API_ADDRESS=payment-processor
+      - PAYMENT_MONGODB_HOST=mongo
+    depends_on:
+      - mongo
+      - localstack
+    restart: on-failure
+    networks:
+      - com.rpe.challenge
+
 volumes:
   postgres-data:
   mongo-data:

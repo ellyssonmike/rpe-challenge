@@ -7,7 +7,6 @@ import { manifest } from '@core/manifest';
 import {
   IsBoolean,
   IsEnum,
-  IsFQDN,
   IsNotEmpty,
   IsString,
   Max,
@@ -111,8 +110,6 @@ export class ConfigService {
     return this.service.get<string>('PAYMENT_API_PROTOCOL');
   }
 
-  @ValidateIf((_, value) => value !== 'localhost')
-  @IsFQDN({ require_tld: true }, { message: 'Deve ser "localhost" ou um domínio válido' })
   get PAYMENT_API_ADDRESS(): string {
     return this.service.get<string>('PAYMENT_API_ADDRESS');
   }
