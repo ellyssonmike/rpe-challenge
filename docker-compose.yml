@@ -69,6 +69,27 @@ services:
     depends_on:
       - mongo
 
+  orders-service:
+    build: 
+      context: ./orders-service
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./orders-service/.env
+    environment:
+      - ORDERS_DATASOURCE_URL=jdbc:postgresql://postgres:5432/orders-database
+      - PAYMENT_PROCESSOR_URL=http://payment-processor:4001
+      - AWS_SQS_ENDPOINT=http://localstack:4566
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+      - postgres
+      - localstack
+    restart: on-failure
+    networks:
+      - com.rpe.challenge
+
   payment-processor:
     build: 
       context: ./payment-processor
