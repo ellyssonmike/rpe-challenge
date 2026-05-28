@@ -166,8 +166,8 @@ A rota de listar ordens de serviço possui alguns filtros via `QueryParams` que 
   - `CREATED_AT` - **Created_At**, **CreatedAt**, **createdAt**, **created_at**, **createdat** (...) - data de criação da ordem
   - `UPDATED_AT` - **Updated_At**, **UpdatedAt**, **updatedAt**, **updated_at**, **updatedat** (...) - data de atualização da ordem
 - `sortDirection` - Direção da ordenação
-  - `ASC` - **Asc**, **asc** - ascendente
-  - `DESC` - **Desc**, **desc** - descendente
+  - `ASC` - **Asc**, **asc** (...) - ascendente
+  - `DESC` - **Desc**, **desc** (...) - descendente
 
 Todas as rotas possuem uma validação dinâmica baseada nas annotations, onde em caso de erro são retornados todos os campos com as mensagens correspondentes para o campo:
 ```json
