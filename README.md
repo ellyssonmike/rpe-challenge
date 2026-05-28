@@ -127,7 +127,7 @@ $ npm run dev
 ```
 
 ### Spring Boot
-No caso do Spring, é bem melhor com através da **IDE** usando o **IntelliJ IDEA**, mas caso queira rodar também através do terminal, podemos usar os seguintes comandos:
+No caso do Spring, é bem melhor através da **IDE** usando o **IntelliJ IDEA**, mas caso queira rodar também através do terminal, podemos usar os seguintes comandos:
 ```bash
 # instalar e compilar
 $ mvn clean install
