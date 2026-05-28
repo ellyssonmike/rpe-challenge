@@ -126,7 +126,7 @@ $ cd ./orders-web && npm install
 $ npm run dev
 ```
 
-### Spring Boot
+### Spring Boot (orders-service)
 No caso do Spring, é bem melhor através da **IDE** usando o **IntelliJ IDEA**, mas caso queira rodar também através do terminal, podemos usar os seguintes comandos:
 ```bash
 # instalar e compilar
