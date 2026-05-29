@@ -147,7 +147,7 @@ As seguintes estão bloqueadas, podendo ser acessadas apenas via token `Bearer` 
 - **GET**: `/orders` - Listar ordens de serviço (apenas **MANAGER** ou **ADMIN**)
 
 A rota de listar ordens de serviço possui alguns filtros via `QueryParams` que são:
-- `cpf` - Filtrar por **CPF** do comprador
+- `buyerCpf` - Filtrar por **CPF** do comprador
 - `status` - Filtrar por **status** da ordem de serviço. Os valores aceitos e suas variantes **case-insensitive:**
   - `PAID` - **Paid**, **paid** (...) - ordem paga
   - `PENDING` - **Pending**, **pending** (...) - ordem pendente
