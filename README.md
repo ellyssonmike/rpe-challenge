@@ -59,10 +59,10 @@ $ cp ./orders-web/.env.example ./orders-web/.env
 $ cp ./payment-processor/.env.example ./payment-processor/.env
 
 # ou.. tudo de uma vez também
-$ cp .env.example .env \
-cp ./orders-service/.env.example ./orders-service/.env \
-cp ./orders-web/.env.example ./orders-web/.env \
-cp ./payment-processor/.env.example ./payment-processor/.env
+$ cp .env.example .env && \
+  cp ./orders-service/.env.example ./orders-service/.env && \
+  cp ./orders-web/.env.example ./orders-web/.env && \
+  cp ./payment-processor/.env.example ./payment-processor/.env
 ```
 
 ### 2. Setar a variável de ambiente **LOCALSTACK_AUTH_TOKEN**
@@ -200,8 +200,8 @@ Aproveitamos que falamos das senhas, elas precisam ter no mínimo 8 caracteres, 
 
 ### Serviço de pagamentos
 No serviço de pagamentos está tudo liberado
-- **POST** `/payment/process` - Processar pagamento vindo do **orders-service**
-- **PATCH** `/payment/status` - Atualizar status do pagamento no fluxo de **PIX**
+- **POST** `/payments/process` - Processar pagamento vindo do **orders-service**
+- **PATCH** `/payments/status` - Atualizar status do pagamento no fluxo de **PIX**
 
 No serviço de pagamentos também há esse tratamento de erros baseado em decorators, retornando os respectivos campos e mensagens de erro. Mas neste caso, como é um serviço que não é acessível ao usuário através da interface web. Não adicionei mensagens em português no fluxo dos `Controllers`, apenas no startup, [aqui](./payment-processor/src/config/config.service.ts#L76).
 
